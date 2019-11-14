@@ -283,7 +283,7 @@ contract SupplyChainContract2 {
 	*		-1		调用者不是管理员
 	*		-2		公司不存在	
 	*/
-	function addBalance(string to, int256 value) public returns(int) {
+	function addBalance(string memory to, int256 value) public returns(int) {
 		if(msg.sender != admin_addr)
 			return -1;
 

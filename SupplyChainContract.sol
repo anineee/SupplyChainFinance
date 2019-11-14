@@ -259,7 +259,42 @@ contract SupplyChainContract2 {
 		emit showSignEvent(receipts[r_idx].signer, receipts[r_idx].sign);
 	}
 
+	/*
+	*	描述：
+	*		输出回执信息
+	*	参数：
+	*		r_idx	回执的数组下标
+	*/
+	function showReceipt(uint256 r_idx) public {
+		emit showReceiptEvent(receipts[r_idx].from, receipts[r_idx].to, receipts[r_idx].value, receipts[r_idx].return_time, receipts[r_idx].status, receipts[r_idx].used);
+		checkReceiptSign(r_idx);
+	}
+
 	// =============== 供应链金融操作函数 ===================
+
+	/*
+	*	描述：
+	*		管理员增加公司的余额
+	*	参数：
+	*		to 		收款公司
+	*		value 	款项大小
+	*	返回值：
+	*		0		成功
+	*		-1		调用者不是管理员
+	*		-2		公司不存在	
+	*/
+	function addBalance(string to, int256 value) public returns(int) {
+		if(msg.sender != admin_addr)
+			return -1;
+
+		uint256 to_idx = getCompanyIdx(to);
+		if(to_idx == (uint256)(-1))
+			return -2;
+
+		companies[to_idx].balance += value;
+		return 0;
+	}
+
 
 	/*
 	*	描述：

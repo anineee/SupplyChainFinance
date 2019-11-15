@@ -273,6 +273,18 @@ contract SupplyChainContract2 {
 	// =============== 供应链金融操作函数 ===================
 
 	/*
+	* 	描述：
+	*		输出公司信息
+	*	参数：
+	*		c_name	公司名称
+	*/
+	function getCompany(string memory c_name) public {
+		uint256 c_idx = getCompanyIdx(c_name);
+		if(c_idx != (uint256)(-1))
+			emit showCompanyEvent(companies[c_idx].name, companies[c_idx].addr, companies[c_idx].balance, companies[c_idx].type_t, companies[c_idx].receipts_num);
+	}
+
+	/*
 	*	描述：
 	*		管理员增加公司的余额
 	*	参数：
